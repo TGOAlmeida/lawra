@@ -129,3 +129,17 @@ get_info <- function(df_loop){
   )
   final_df
 }
+
+
+
+# Function to get file details
+get_file_details <- function(dir_path) {
+  files <- list.files(path = dir_path, full.names = TRUE, recursive = TRUE)
+  files_info <- file.info(files)
+  files_df <- data.frame(
+    File = files,
+    Creation_Date = as.character(files_info$ctime),
+    Size_MB = round(files_info$size / (1024 * 1024), 2)
+  )
+  return(files_df)
+}
