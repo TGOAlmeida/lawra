@@ -10,8 +10,8 @@ ui_lawra <- fluidPage(theme = shinytheme("flatly"),
     ),
     mainPanel(
       h3("File List"),
-      #tableOutput("fileList")
-      DT::dataTableOutput("fileList")
+      tableOutput("fileList")
+      #DT::dataTableOutput("fileList")
     )
   )
 )
