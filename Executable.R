@@ -18,6 +18,3 @@ if(env2Run == "PRD")
 
 source(paste0(sourceCodePath, "server_lawra.R"))
 source(paste0(sourceCodePath, "ui_lawra.R"))
-
-# Run the application
-shinyApp(ui = ui_lawra, server = server_lawra)
