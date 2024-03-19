@@ -148,11 +148,11 @@ get_info_pdf <- function(arq_pdf_2_read){
   
 }
 
-get_specific_text <- function(x, pattern){
+get_specific_text <- function(x, pt){
   x <- unlist(x)
   y = "Not found"
-  regex_pattern <- paste0("(?<=", pattern, ").*")
-  try(y <- stringr::str_trim(stringr::str_extract(stringr::str_subset(x, text)[1], regex_pattern)))
+  regex_pattern <- paste0("(?<=", pt, ").*")
+  try(y <- stringr::str_trim(stringr::str_extract(stringr::str_subset(x, pt)[1], regex_pattern)))
   return(y)
 }
 
