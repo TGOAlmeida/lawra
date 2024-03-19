@@ -2,6 +2,9 @@
 
 
 
+
+
+
 ################################################################################
 # Check if pdf is a readble file
 is_pdf_readable <- function(pdf_path) {
@@ -88,10 +91,6 @@ get_info <- function(df_loop){
 
   cnpj <- unlist(str_extract_all(pdf_text_combined, "(?<=cnpj: d{2}.d{3}.d{3}/d{4}-d{2}$"))
 
-
-
-
-
   cpf_cnpj_credor <- cpf_cnpj[1]
   cpf_cnpj_devedor <- cpf_cnpj[2]
   
@@ -130,8 +129,44 @@ get_info <- function(df_loop){
   final_df
 }
 
+################################################################################
+# Get all information from pdf
+get_info_pdf <- function(arq_pdf_2_read){
+  
+  pdf_text_content <- pdf_text(arq_pdf_2_read)
+  first_page <- pdf_text_content[1]
+  list_fp <- str_split(tolower(paste(first_page, collapse = "\n")), "\n")
+  list_fp <- lapply(list_fp, str_trim)
+  
+  raz_soc   <- get_specific_text(list_fp, "razão social:")
+  cnpj      <- get_specific_text(list_fp, "cnpj:")
+  insc_est  <- get_specific_text(list_fp, "inscrição estadual:")
+  end       <- get_specific_text(list_fp, "endereço:")
+  cid_uf    <- get_specific_text(list_fp, "cidade / estado:")
+  cep       <- get_specific_text(list_fp, "cep:")
+  tel       <- get_specific_text(list_fp, "telefone:")
+  email     <- get_specific_text(list_fp, "e-mail:")
+  rep_legal <- get_specific_text(list_fp, "representante legal:")
+  cargo     <- get_specific_text(list_fp, "cargo:")
+  cpf       <- get_specific_text(list_fp, "cpf:")
+  
+  df <- data.frame(raz_soc, cnpj, insc_est, end, cid_uf, cep, tel, email, rep_legal, cargo, cpf)
+  df
+  
+}
+
+get_specific_text <- function(x, pattern){
+  x <- unlist(x)
+  y = "Not found"
+  regex_pattern <- paste0("(?<=", pattern, ").*")
+  try(y <- stringr::str_trim(stringr::str_extract(stringr::str_subset(x, text)[1], regex_pattern)))
+  return(y)
+}
 
 
+
+
+################################################################################
 # Function to get file details
 get_file_details <- function(dir_path) {
   files <- list.files(path = dir_path, full.names = TRUE, recursive = TRUE)

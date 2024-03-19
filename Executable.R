@@ -6,10 +6,12 @@ library(tibble)
 library(dplyr)
 library(shinyFiles)
 library(shinythemes)
+library(pdftools)
+library(stringr)
 library(DT)
 
 
-executeUI <- TRUE
+executeUI <- 1
 
 #source(paste0(sourceCodePath, "server_lawra.R"))
 source(paste0(sourceCodePath, "00.Functions.R"))
