@@ -11,7 +11,7 @@ library(stringr)
 library(DT)
 
 
-executeUI <- 1
+executeUI <- 0
 
 #source(paste0(sourceCodePath, "server_lawra.R"))
 source(paste0(sourceCodePath, "00.Functions.R"))
