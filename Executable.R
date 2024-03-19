@@ -5,16 +5,12 @@ library(shinyWidgets)
 library(tibble)
 library(dplyr)
 library(shinyFiles)
+library(shinythemes)
+library(DT)
 
 
-if(env2Run == "DEV")
-{
-  dirPrj <- "/Users/tiago/Documents/GitHub/lawra"
-}
-if(env2Run == "PRD")
-{
-  dirPrj <- "C:/Users/darcis/Desktop/Contratos_teste"
-}
+executeUI <- TRUE
 
-source(paste0(sourceCodePath, "server_lawra.R"))
+#source(paste0(sourceCodePath, "server_lawra.R"))
+source(paste0(sourceCodePath, "00.Functions.R"))
 source(paste0(sourceCodePath, "ui_lawra.R"))

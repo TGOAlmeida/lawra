@@ -5,7 +5,7 @@ rm(list=ls())
 
 ################################################################################
 # Set project folder
-dirPrj <- "/Users/tiago/Documents/Projetos/Darci"
+dirPrj <- "/Users/tiago/Documents/Projetos/Darci/Input"
 dirPrj <- "C:/Users/darcis/Desktop/Contratos_teste"
 setwd(dirPrj)
 
