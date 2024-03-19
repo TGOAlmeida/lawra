@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 ################################################################################
 # Check if pdf is a readble file
 is_pdf_readable <- function(pdf_path) {
