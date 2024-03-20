@@ -63,7 +63,7 @@ create_df_list_of_files <- function(file_list){
 # Create dataframe with due information
 
 # df_loop <- total_file_data[2,]
-get_info <- function(df_loop){
+get_basic_info <- function(df_loop){
   arq_pdf_2_read <- paste(df_loop$folder_path, df_loop$file_name, sep="/")
   client <- df_loop$client
   
@@ -125,7 +125,7 @@ get_info <- function(df_loop){
 ################################################################################
 # Get all information from pdf
 get_info_pdf <- function(arq_pdf_2_read){
-  
+
   pdf_text_content <- pdf_text(arq_pdf_2_read)
   first_page <- pdf_text_content[1]
   list_fp <- str_split(tolower(paste(first_page, collapse = "\n")), "\n")
@@ -142,8 +142,27 @@ get_info_pdf <- function(arq_pdf_2_read){
   rep_legal <- get_specific_text(list_fp, "representante legal:")
   cargo     <- get_specific_text(list_fp, "cargo:")
   cpf       <- get_specific_text(list_fp, "cpf:")
+  dt_sign   <- get_specific_text(list_fp, "uberlândia,")
+  dt_sign <- str_replace_all(dt_sign, 
+                                 c(" de " = "/", 
+                                   "janeiro" = "01", 
+                                   "fevereiro" = "02", 
+                                   "março" = "03", 
+                                   "abril" = "04", 
+                                   "maio" = "05", 
+                                   "junho" = "06", 
+                                   "julho" = "07", 
+                                   "agosto" = "08", 
+                                   "setembro" = "09", 
+                                   "outubro" = "10", 
+                                   "novembro" = "11", 
+                                   "dezembro" = "12"))
+  dt_sign <- str_remove_all(dt_sign, "[.]")
   
-  df <- data.frame(raz_soc, cnpj, insc_est, end, cid_uf, cep, tel, email, rep_legal, cargo, cpf)
+
+  
+  
+  df <- data.frame(raz_soc, cnpj, insc_est, end, cid_uf, cep, tel, email, rep_legal, cargo, cpf, dt_sign)
   df
   
 }
