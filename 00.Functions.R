@@ -126,9 +126,9 @@ get_basic_info <- function(df_loop){
 # Get all information from pdf
 get_info_pdf <- function(arq_pdf_2_read){
 
-  pdf_text_content <- pdf_text(arq_pdf_2_read)
+  pdf_text_content <- tolower(pdf_text(arq_pdf_2_read))
   first_page <- pdf_text_content[1]
-  list_fp <- str_split(tolower(paste(first_page, collapse = "\n")), "\n")
+  list_fp <- str_split(paste(first_page, collapse = "\n"), "\n")
   list_fp <- lapply(list_fp, str_trim)
   
   raz_soc   <- get_specific_text(list_fp, "razão social:")
@@ -143,11 +143,17 @@ get_info_pdf <- function(arq_pdf_2_read){
   cargo     <- get_specific_text(list_fp, "cargo:")
   cpf       <- get_specific_text(list_fp, "cpf:")
   
+  y = "Not found"
+  regex_pattern <- "uberlândia, (\\d+) de (\\w+)*"
   
-  pt <- "uberlândia, (\\d+) de (\\w+)"
-  dt_sign <- str_extract(stringr::str_subset(list_fp, pt)[1], pt)
-
-  dt_sign <- str_replace_all(dt_sign, 
+  pt <- "uberlândia, (\\d+) de "
+  
+  x <- stringr::str_subset(pdf_text_content, pt)
+  x <- stringr::str_split(x,"\n")
+  x <- stringr::str_subset(unlist(x), pt)
+  
+  try(y <- stringr::str_trim(stringr::str_extract(x, "(?<=uberlândia, ).*")))
+  dt_sign <- str_replace_all(y, 
                                  c(" de " = "/", 
                                    "janeiro" = "01", 
                                    "fevereiro" = "02", 
