@@ -142,7 +142,11 @@ get_info_pdf <- function(arq_pdf_2_read){
   rep_legal <- get_specific_text(list_fp, "representante legal:")
   cargo     <- get_specific_text(list_fp, "cargo:")
   cpf       <- get_specific_text(list_fp, "cpf:")
-  dt_sign   <- get_specific_text(list_fp, "uberlândia,")
+  
+  
+  pt <- "Uberlândia, (\\d+) de (\\w+)"
+  dt_sign <- str_extract(stringr::str_subset(list_fp, pt)[1], pt)
+
   dt_sign <- str_replace_all(dt_sign, 
                                  c(" de " = "/", 
                                    "janeiro" = "01", 
