@@ -144,7 +144,7 @@ get_info_pdf <- function(arq_pdf_2_read){
   cpf       <- get_specific_text(list_fp, "cpf:")
   
   
-  pt <- "Uberlândia, (\\d+) de (\\w+)"
+  pt <- "uberlândia, (\\d+) de (\\w+)"
   dt_sign <- str_extract(stringr::str_subset(list_fp, pt)[1], pt)
 
   dt_sign <- str_replace_all(dt_sign, 
