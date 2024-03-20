@@ -142,16 +142,14 @@ get_info_pdf <- function(arq_pdf_2_read){
   rep_legal <- get_specific_text(list_fp, "representante legal:")
   cargo     <- get_specific_text(list_fp, "cargo:")
   cpf       <- get_specific_text(list_fp, "cpf:")
+  # --------
+  # dtsign -------
   
   y = "Not found"
-  regex_pattern <- "uberlândia, (\\d+) de (\\w+)*"
-  
   pt <- "uberlândia, (\\d+) de "
-  
   x <- stringr::str_subset(pdf_text_content, pt)
   x <- stringr::str_split(x,"\n")
   x <- stringr::str_subset(unlist(x), pt)
-  
   try(y <- stringr::str_trim(stringr::str_extract(x, "(?<=uberlândia, ).*")))
   dt_sign <- str_replace_all(y, 
                                  c(" de " = "/", 
