@@ -79,13 +79,13 @@ get_target_values <- function(pdf_text_content_Ori)
   cpf        <- get_specific_text(pdf_text_content, "cpf:")
 
   y = "Not found"
-  pt <- "uberlândia, (\\d+) de "
-  x <- stringr::str_subset(pdf_text_content, pt)
+  pt <- "uberlândia,(\\d+)de"
+  x <- stringr::str_subset(str_remove_all(pdf_text_content," "), pt)
   x <- stringr::str_split(x,"\n")
   x <- stringr::str_subset(unlist(x), pt)
-  try(y <- stringr::str_trim(stringr::str_extract(x, "(?<=uberlândia, ).*")))
+  try(y <- stringr::str_trim(stringr::str_extract(x, "(?<=uberlândia,).*")))
   dt_sign <- str_replace_all(y, 
-                                  c(" de " = "/", 
+                                  c( 
                                     "janeiro" = "01", 
                                     "fevereiro" = "02", 
                                     "março" = "03", 
@@ -98,7 +98,8 @@ get_target_values <- function(pdf_text_content_Ori)
                                     "outubro" = "10", 
                                     "novembro" = "11", 
                                     "dezembro" = "12"))
-                                    
+dt_sign <- str_replace_all(dt_sign,"de", "/")
+
   dt_sign <- str_remove_all(dt_sign, "[.]")
 
   ind_reajuste <- str_split(get_specific_text(pdf_text_content, "positiva do"), " ")[[1]][1]
