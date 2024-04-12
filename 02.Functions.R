@@ -85,7 +85,7 @@ get_target_values <- function(pdf_text_content_Ori)
   cpf        <- ifelse(!is.na(cargo_cpf), str_split("cargo/cpf:", "/")[[1]][2], 
                        get_specific_text(pdf_text_content, "cpf:"))
 
-  flag_aditivo <- ifelse(str_detect(pdf_text_content[1:10], "aditivo"),1,0)
+  flag_aditivo <- ifelse(any(str_detect(pdf_text_content[1:10], "aditivo")),1,0)
   
 
   y = "Not found"
