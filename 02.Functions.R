@@ -189,6 +189,7 @@ is_pdf <- function(file_path) {
 # Create a dataframe with every element in a file list
 create_df_list_of_files <- function(file_list){
   file_data <- data.frame(
+    id = 1:length(file_list),
     folder_path = dirname(file_list),
     file_name = basename(file_list)
   )
